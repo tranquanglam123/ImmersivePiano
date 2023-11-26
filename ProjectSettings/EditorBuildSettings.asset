@@ -6,8 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Oculus/SampleFramework/Usage/SceneManager.unity
-    guid: d9d629a01189e9744a9347a18243afd9
+    path: Assets/Scenes/PianoMRTK.unity
+    guid: fcde5a0214befd845b30b77c94dc42fe
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: d50775e492692984b83d3909524b3d4d, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: f810356301450d64ca6bb7adcab767c5, type: 2}
+    com.unity.xr.openxr.settings4: {fileID: 11400000, guid: ba95818d3f4efac4fb53b65b4531149b, type: 2}
