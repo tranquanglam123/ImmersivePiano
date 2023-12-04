@@ -52,6 +52,7 @@ public class DrawColliderHandler : MonoBehaviour
         {
             InitCollider(initPoint, endPoint);
             colliderSpawned = true; // Set the flag to true to prevent further spawning
+            gameObject.SetActive(false); // Disable this script to prevent further drawing
         }
     }
 
@@ -79,14 +80,18 @@ public class DrawColliderHandler : MonoBehaviour
 
     public void InitCollider(Vector3 init, Vector3 end)
     {
+        //Vector3 center = Vector3.zero;
         Vector3 center = (init + end) / 2;
-        center.z += 0.25f;
+        Debug.Log("Center: " + center);
+        //center.x  = (init.x + end.x) / 2;
+        //center.z = end.z +0.25f;
+        //center.y = init.y;
 
         // Calculate the direction vector of the line
         Vector3 direction = end - init;
 
         // Set the rotation of the collider to align with the line
-        Quaternion rotation = Quaternion.LookRotation(direction)*Quaternion.Euler(0,90,0);
+        Quaternion rotation = Quaternion.LookRotation(direction)*Quaternion.Euler(0,-90,0);
 
         // Spawn the collider at the center of the line, with the rotation aligned to the line
         GameObject collider = Instantiate(colliderPrefab, center, rotation);
