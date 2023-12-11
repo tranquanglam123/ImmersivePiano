@@ -10,7 +10,7 @@ public class DrawColliderHandler : MonoBehaviour
     public Material material;
     public GetPointerHandler getPointerHandler;
     private bool isDrawing = false;
-
+    
     [SerializeField] GameObject colliderPrefab;
     private Vector3 initPoint;
     private Vector3 endPoint;
@@ -45,14 +45,14 @@ public class DrawColliderHandler : MonoBehaviour
         }
         else
         {
-            colliderPrefab.SetActive(false); // Disable the collider until it's needed again
+            //colliderPrefab.SetActive(false); // Disable the collider until it's needed again
         }
 
         if (count >= 2 && !colliderSpawned)
         {
             InitCollider(initPoint, endPoint);
             colliderSpawned = true; // Set the flag to true to prevent further spawning
-            gameObject.SetActive(false); // Disable this script to prevent further drawing
+            //gameObject.SetActive(false); // Disable this script to prevent further drawing
         }
     }
 
@@ -94,8 +94,11 @@ public class DrawColliderHandler : MonoBehaviour
         Quaternion rotation = Quaternion.LookRotation(direction)*Quaternion.Euler(0,-90,0);
 
         // Spawn the collider at the center of the line, with the rotation aligned to the line
-        GameObject collider = Instantiate(colliderPrefab, center, rotation);
-        collider.SetActive(true); // Activate the collider after instantiation
-        colliderPrefab.SetActive(false); // Disable the prefab until drawing starts again
+        StartCoroutine(SpawnPiano(center, rotation));
+    }
+    IEnumerator SpawnPiano(Vector3 center, Quaternion rotation)
+    {
+        yield return new WaitForSeconds(1);
+        colliderPrefab.transform.SetPositionAndRotation(center, rotation);
     }
 }
