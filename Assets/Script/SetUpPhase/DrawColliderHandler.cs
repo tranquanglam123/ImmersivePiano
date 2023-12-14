@@ -10,7 +10,7 @@ public class DrawColliderHandler : MonoBehaviour
     public Material material;
     public GetPointerHandler getPointerHandler;
     private bool isDrawing = false;
-    
+
     [SerializeField] GameObject colliderPrefab;
     private Vector3 initPoint;
     private Vector3 endPoint;
@@ -91,7 +91,7 @@ public class DrawColliderHandler : MonoBehaviour
         Vector3 direction = end - init;
 
         // Set the rotation of the collider to align with the line
-        Quaternion rotation = Quaternion.LookRotation(direction)*Quaternion.Euler(0,-90,0);
+        Quaternion rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
 
         // Spawn the collider at the center of the line, with the rotation aligned to the line
         StartCoroutine(SpawnPiano(center, rotation));
