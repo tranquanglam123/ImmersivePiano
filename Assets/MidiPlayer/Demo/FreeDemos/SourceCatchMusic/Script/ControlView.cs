@@ -21,7 +21,7 @@ namespace MPTKDemoCatchMusic
                 played = true;
                 // If original z is not the same, the value will be changed, too bad for the ears ...
                 int delta = (int)(zOriginal - transform.position.z);
-                note.Value += delta;
+                //note.Value += delta;
                 // Now play the control change with a MidiStreamPlayer prefab
                 midiStreamPlayer.MPTK_PlayEvent(note);
 
