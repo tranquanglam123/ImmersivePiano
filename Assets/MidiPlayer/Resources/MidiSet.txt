@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<MidiSet xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <SoundFonts>
+    <SoundFontInfo>
+      <Name>GeneralUser GS v1.471</Name>
+      <PatchCount>269</PatchCount>
+      <WaveCount>864</WaveCount>
+      <WaveSize>35262462</WaveSize>
+      <SF2Path>C:/Users/thier/AppData/LocalLow/Musit/Maestro MPTK\SoundFont\GeneralUser GS v1.471.sf2</SF2Path>
+    </SoundFontInfo>
+  </SoundFonts>
+  <IndexSelectedSF>0</IndexSelectedSF>
+  <MidiFiles>
+    <string>A Tisket, A Tasket</string>
+    <string>along with my love i'll go</string>
+    <string>amazing_grace</string>
+    <string>arirang</string>
+    <string>Auld Lang Syne</string>
+    <string>auld_lang_syne_PNO</string>
+    <string>beautiful_dreamer_pno</string>
+    <string>Believe Me If All Those Endearing Young Charms</string>
+    <string>bella bimba</string>
+    <string>Blow The Man Down</string>
+    <string>Botany Bay</string>
+    <string>Botany Bay _C_</string>
+    <string>camptown_races</string>
+    <string>clementine_PNO</string>
+    <string>coming_round_the_mountain_PNO</string>
+    <string>daisy_bell</string>
+    <string>down_in_the_valley</string>
+    <string>Drink to me only with thine eyes</string>
+    <string>evening_bells_PNO</string>
+    <string>Five_Little_Ducks</string>
+    <string>Go_Tell_It_On_The_Mountain</string>
+    <string>grandfatherClock</string>
+    <string>happy_birthday_to_you</string>
+    <string>hot_cross_bunsPNO</string>
+    <string>House_of_the_rising_sun</string>
+    <string>hushlittlebaby_PNO</string>
+    <string>jasmine_flower_PNO</string>
+    <string>jeanie with the light brown hair</string>
+    <string>jeanie_brown_hair_pno</string>
+    <string>listen to the mockingbird</string>
+    <string>london_bridge</string>
+    <string>long_long_ago_PNO</string>
+    <string>mary_had_a_little_lamb_PNO</string>
+    <string>my_bonnie</string>
+    <string>nearer_my_god</string>
+    <string>offenbach_barcarole</string>
+    <string>on_top_of_old_smokey_pno</string>
+    <string>over_the_river_PNO</string>
+    <string>OverTheWaves</string>
+    <string>red_river_valley_PNO</string>
+    <string>rock_of_ages_PNO</string>
+    <string>row_row_row_PNO</string>
+    <string>take me out to the ball game</string>
+    <string>turkey_in_the_strawPNO</string>
+    <string>twinkle_twinkle</string>
+    <string>what_can_the_matter_PNO</string>
+    <string>Yiruma - Rivers Flow In You</string>
+  </MidiFiles>
+</MidiSet>
