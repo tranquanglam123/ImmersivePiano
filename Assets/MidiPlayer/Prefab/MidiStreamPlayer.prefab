@@ -32,6 +32,7 @@ Transform:
   m_Children:
   - {fileID: 4383479756525956}
   m_Father: {fileID: 4977113046780174}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &114681648490992334
 MonoBehaviour:
@@ -84,6 +85,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4217309516267254}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &82312774873939848
 AudioSource:
@@ -280,6 +282,7 @@ Transform:
   - {fileID: 4705791444233294}
   - {fileID: 4217309516267254}
   m_Father: {fileID: 0}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &114320350483668748
 MonoBehaviour:
@@ -401,6 +404,13 @@ MonoBehaviour:
   showEvents: 0
   showDefault: 0
   spatialize: 0
+  MPTK_EffectSoundFont: {fileID: 0}
+  MPTK_EffectUnity: {fileID: 0}
+  MPTK_ModeSpatializer: 0
+  MPTK_MaxSpatialSynth: 0
+  MPTK_SpatialSynthEnabled: 0
+  MPTK_InstrumentNum: 0
+  MPTK_LogChord: 0
 --- !u!82 &82252122336247308
 AudioSource:
   m_ObjectHideFlags: 0
@@ -566,6 +576,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4977113046780174}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &114971132768011762
 MonoBehaviour:
@@ -585,3 +596,4 @@ MonoBehaviour:
   InstanceOnEventPresetLoaded:
     m_PersistentCalls:
       m_Calls: []
+  MPTK_LiveSoundFont: 

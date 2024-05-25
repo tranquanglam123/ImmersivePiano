@@ -11,52 +11,97 @@
   </SoundFonts>
   <IndexSelectedSF>0</IndexSelectedSF>
   <MidiFiles>
-    <string>A Tisket, A Tasket</string>
-    <string>along with my love i'll go</string>
-    <string>amazing_grace</string>
-    <string>arirang</string>
-    <string>Auld Lang Syne</string>
-    <string>auld_lang_syne_PNO</string>
-    <string>beautiful_dreamer_pno</string>
-    <string>Believe Me If All Those Endearing Young Charms</string>
-    <string>bella bimba</string>
-    <string>Blow The Man Down</string>
-    <string>Botany Bay</string>
-    <string>Botany Bay _C_</string>
-    <string>camptown_races</string>
-    <string>clementine_PNO</string>
-    <string>coming_round_the_mountain_PNO</string>
-    <string>daisy_bell</string>
-    <string>down_in_the_valley</string>
-    <string>Drink to me only with thine eyes</string>
-    <string>evening_bells_PNO</string>
-    <string>Five_Little_Ducks</string>
-    <string>Go_Tell_It_On_The_Mountain</string>
-    <string>grandfatherClock</string>
-    <string>happy_birthday_to_you</string>
-    <string>hot_cross_bunsPNO</string>
-    <string>House_of_the_rising_sun</string>
-    <string>hushlittlebaby_PNO</string>
-    <string>jasmine_flower_PNO</string>
-    <string>jeanie with the light brown hair</string>
-    <string>jeanie_brown_hair_pno</string>
-    <string>listen to the mockingbird</string>
-    <string>london_bridge</string>
-    <string>long_long_ago_PNO</string>
-    <string>mary_had_a_little_lamb_PNO</string>
-    <string>my_bonnie</string>
-    <string>nearer_my_god</string>
-    <string>offenbach_barcarole</string>
-    <string>on_top_of_old_smokey_pno</string>
-    <string>over_the_river_PNO</string>
-    <string>OverTheWaves</string>
-    <string>red_river_valley_PNO</string>
-    <string>rock_of_ages_PNO</string>
-    <string>row_row_row_PNO</string>
-    <string>take me out to the ball game</string>
-    <string>turkey_in_the_strawPNO</string>
-    <string>twinkle_twinkle</string>
-    <string>what_can_the_matter_PNO</string>
-    <string>Yiruma - Rivers Flow In You</string>
+    <string>@ All Rights Reserved for these Midi Files</string>
+    <string>Albinoni - Adagio</string>
+    <string>All Night Long</string>
+    <string>Animal Crossing</string>
+    <string>Aqua - Lollipop Candy Man</string>
+    <string>Bach - Fugue</string>
+    <string>Bach - Little fugue G minor</string>
+    <string>Bach - Prelude</string>
+    <string>Bach - The Art of Fugue</string>
+    <string>Bach - Toccata in D minor Organ</string>
+    <string>Bach - Toccata in D minor Piano</string>
+    <string>Bach - Trisonate 3iem mvt</string>
+    <string>Baez Joan - Here's to You</string>
+    <string>Baez Joan - Plaisir D'Amour</string>
+    <string>Beattles - Michelle</string>
+    <string>Bizet - Arlesienne</string>
+    <string>Bjork - Joga</string>
+    <string>Bjork - Oh So Quiet</string>
+    <string>Bjork - Venus As A Boy</string>
+    <string>BlowinintheWind</string>
+    <string>Blues Image - Ride Captain Ride</string>
+    <string>Bobby Blue Bland - A Touch Of Blues</string>
+    <string>Buddy Guy - Midnight Train</string>
+    <string>Christopher Cross - Sailing</string>
+    <string>Conan The Barbarian</string>
+    <string>Dark Cloud 2 - Dark Chronicle</string>
+    <string>Dark Cloud 2 - Peace</string>
+    <string>Dark Cloud 2 - Shop Theme</string>
+    <string>DarkCloud2</string>
+    <string>Debussy - Clair De Lune</string>
+    <string>Debussy - Clair De Lune V2</string>
+    <string>Donkey Kong - Country</string>
+    <string>Donkey Kong - Theme</string>
+    <string>Dragon Ball Z - Battle Theme1</string>
+    <string>Dragon Ball Z - Opening</string>
+    <string>Dragon Ball Z - Super Butouden 2</string>
+    <string>Eagles - Best Of My Love</string>
+    <string>Everybody loves somebody sometime 1</string>
+    <string>EVO - Boss Theme</string>
+    <string>Faure - Requiem</string>
+    <string>Final Fantasy - Village</string>
+    <string>Fire Emblem 3 - Theme</string>
+    <string>Hans_Zimmer_-_Pirates_Of_The_Caribbean_-_He's_A_Pirate</string>
+    <string>Higelin Jacques - Champagne</string>
+    <string>kakariko</string>
+    <string>ladolcevita</string>
+    <string>Leo Ferre - Avec le temps</string>
+    <string>Liszt - La Campanella</string>
+    <string>Liszt Saint-Saens - Danse Macabre</string>
+    <string>Louis Armstrong - Hello Dolly</string>
+    <string>Louis Armstrong - What A Wonderful World</string>
+    <string>Maji Call Jarr</string>
+    <string>Mike Oldfield - Incantations 1</string>
+    <string>Mike Oldfield - Incantations 3</string>
+    <string>Mike Oldfield - Moonlight_Shadow</string>
+    <string>Mike Oldfield - Ommadawn 1</string>
+    <string>Mike Oldfield - Ommadawn 1b</string>
+    <string>Mike Oldfield - TubularBells Part 1</string>
+    <string>Moby - Alone</string>
+    <string>Moby - J Breas</string>
+    <string>Moby - The Blue Terror of Lawns</string>
+    <string>Mozart - Requiem Confutatis</string>
+    <string>Mozart - Requiem Dies Irae</string>
+    <string>Mozart - Requiem Introitus</string>
+    <string>Mozart - Sonate 11 Alla Turca</string>
+    <string>MPTK_Example 0001</string>
+    <string>MPTK_Example 0021</string>
+    <string>Nirvana - Smells Like Teen Spirit</string>
+    <string>Palm Bricks</string>
+    <string>Patti Smith - Because the Night</string>
+    <string>Pergolesi - Stabat Mater</string>
+    <string>Reayo - Amor de Hombre</string>
+    <string>Salvador Henri - Jardin D'hiver</string>
+    <string>Satie - Gnossienne 4</string>
+    <string>Satie - Gnossienne 5</string>
+    <string>Satie - Gymnopedie 1</string>
+    <string>Satie - Gymnopedie 2</string>
+    <string>Satie - Trois Gnossiennes</string>
+    <string>Sibelius - Finlandia</string>
+    <string>Sibelius - Romance</string>
+    <string>Take 5 - by Paul Desmond</string>
+    <string>Tchaikovsky - Flower Waltz</string>
+    <string>Tetris2</string>
+    <string>The Christmas Song</string>
+    <string>To Make the End of Battle</string>
+    <string>Van Morrison - Moondance</string>
+    <string>Van Morrison - Wild Nights</string>
+    <string>Void World's 2nd Half</string>
+    <string>WishYouWereHere</string>
+    <string>Yiruma - Rivers Flow In You _1_</string>
+    <string>Yves Montand - A bicyclette</string>
+    <string>Zagronia - Dw1gOver</string>
   </MidiFiles>
 </MidiSet>

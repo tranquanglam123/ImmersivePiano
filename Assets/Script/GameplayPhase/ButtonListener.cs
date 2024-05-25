@@ -1,6 +1,5 @@
 ﻿using OculusSampleFramework;
-using System.Collections;
-using System.Collections.Generic;
+using Oculus.Interaction;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -22,19 +21,19 @@ public class ButtonListener : MonoBehaviour
         //Debug.Log(state.NewInteractableState);
         switch (state.NewInteractableState)
         {
-            case InteractableState.ProximityState:
+            case OculusSampleFramework.InteractableState.ProximityState:
                 proximityEvent.Invoke();
                 //Debug.Log("ProximityState");
                 break;
-            case InteractableState.ContactState:
+            case OculusSampleFramework.InteractableState.ContactState:
                 contactEvent.Invoke();
                 //Debug.Log("ContactState");
                 break;
-            case InteractableState.ActionState:
+            case OculusSampleFramework.InteractableState.ActionState:
                 actionEvent.Invoke();
                 //Debug.Log("ActionState");
                 break;
-            case InteractableState.Default:
+            case OculusSampleFramework.InteractableState.Default:
                 //Debug.Log("defaultEvent");
                 defaultEvent.Invoke();
                 break;

@@ -10,15 +10,15 @@ namespace MPTKDemoCatchMusic
 {
     public class MusicView : MonoBehaviour
     {
-
+        #region Props
         public static float Speed = 15f;
         public Camera Cam;
         public MidiFilePlayer midiFilePlayer;
         public MidiStreamPlayer midiStreamPlayer;
         public static Color ButtonColor = new Color(.7f, .9f, .7f, 1f);
-        public NoteView NoteDisplay;
+        public NoteView NoteDisplay; //Prefab of the note visualization
         public ControlView ControlDisplay;
-        public Collide Collider;
+        //public Collide Collider;
         public GameObject Plane;
         public float minZ, maxZ, minX, maxX;
         public float LastTimeCollider;
@@ -26,7 +26,7 @@ namespace MPTKDemoCatchMusic
         public float FirstDelayCollider = 20;
         public Material MatNewNote;
         public Material MatNewController;
-
+        #endregion
         // Count gameobject for each z position in the plan. Useful to stack them.
         int[] countZ;
 
@@ -41,11 +41,15 @@ namespace MPTKDemoCatchMusic
 
         void Start()
         {
+            //If no SF loaded or null -> return
             if (!HelperDemo.CheckSFExists()) return;
 
             // Default size of a Unity Plan
             float planSize = 10f;
 
+
+            //Get the last and least position of the plane based on 
+            //center point and size
             minZ = Plane.transform.localPosition.z - Plane.transform.localScale.z * planSize / 2f;
             maxZ = Plane.transform.localPosition.z + Plane.transform.localScale.z * planSize / 2f;
 
@@ -235,9 +239,9 @@ namespace MPTKDemoCatchMusic
                     float zone = 10;
                     Vector3 position = new Vector3(UnityEngine.Random.Range(minX + zone, maxX - zone), -5, UnityEngine.Random.Range(minZ + zone, maxZ - zone));
                     // Instanciate collider (sphere) to interact with note
-                    Collide n = Instantiate<Collide>(Collider, position, Quaternion.identity);
-                    n.gameObject.SetActive(true);
-                    n.hideFlags = HideFlags.HideInHierarchy;
+                    //Collide n = Instantiate<Collide>(Collider, position, Quaternion.identity);
+                    //n.gameObject.SetActive(true);
+                    //n.hideFlags = HideFlags.HideInHierarchy;
                 }
             }
         }

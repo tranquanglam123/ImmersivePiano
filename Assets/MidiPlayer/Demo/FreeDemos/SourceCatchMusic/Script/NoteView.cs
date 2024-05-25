@@ -15,11 +15,11 @@ namespace MPTKDemoCatchMusic
     public class NoteView : MonoBehaviour
     {
         public static bool FirstNotePlayed = false;
-        public MPTKEvent note;
-        public MidiStreamPlayer midiStreamPlayer;
+        public MPTKEvent note; //ref to the event | all attributes of a note 
+        public MidiStreamPlayer midiStreamPlayer; // ??
         public bool played = false;
         public Material MatPlayed;
-        public float zOriginal;
+        public float zOriginal; //out of this -> Dispose
         // 
         /// <summary>@brief
         /// Update
@@ -35,10 +35,10 @@ namespace MPTKDemoCatchMusic
             {
                 played = true;
                 // If original z is not the same, the value will be changed, too bad for the ears ...
-                int delta = (int)(zOriginal - transform.position.z);
+                int delta = (int)(zOriginal - transform.position.z); //Why did the z chagne ?
                 //Debug.Log($"Note:{note.Value} Z:{transform.position.z:F1} DeltaZ:{delta} Travel Time:{note.LatenceTimeMillis} ms");
                 //! [Example PlayNote]
-                note.Value += delta; // change the original note
+                //note.Value += delta; // change the original note
                 // Now play the note with a MidiStreamPlayer prefab
                 midiStreamPlayer.MPTK_PlayEvent(note);
                 //! [Example PlayNote]

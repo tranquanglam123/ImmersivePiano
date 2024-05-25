@@ -36,6 +36,7 @@ Transform:
   - {fileID: 4678630472439024}
   - {fileID: 4132436147561920}
   m_Father: {fileID: 0}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &114662785300262660
 MonoBehaviour:
@@ -95,6 +96,7 @@ MonoBehaviour:
   StatSampleWriteAVG: 0
   StatProcessListMS: 0
   StatProcessListAVG: 0
+  StatusStat: 
   keepPlayingNonLooped: 0
   MPTK_CorePlayer: 1
   MPTK_AudioSettingFromUnity: 1
@@ -157,6 +159,12 @@ MonoBehaviour:
   showEvents: 0
   showDefault: 0
   spatialize: 0
+  MPTK_EffectSoundFont: {fileID: 0}
+  MPTK_EffectUnity: {fileID: 0}
+  MPTK_ModeSpatializer: 0
+  MPTK_MaxSpatialSynth: 0
+  MPTK_SpatialSynthEnabled: 0
+  MPTK_InstrumentNum: 0
   midiNameToPlay: Bobby Blue Bland - A Touch Of Blues
   MPTK_StartPlayAtFirstNote: 0
   MPTK_ModeStopVoice: 1
@@ -356,6 +364,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4132436147561920}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &82347057954033728
 AudioSource:
@@ -547,6 +556,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4314086310842868}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &114784202583469720
 MonoBehaviour:
@@ -566,6 +576,7 @@ MonoBehaviour:
   InstanceOnEventPresetLoaded:
     m_PersistentCalls:
       m_Calls: []
+  MPTK_LiveSoundFont: 
 --- !u!1 &1973024470238730
 GameObject:
   m_ObjectHideFlags: 0
@@ -598,6 +609,7 @@ Transform:
   m_Children:
   - {fileID: 4164904389533854}
   m_Father: {fileID: 4314086310842868}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &114184350103546348
 MonoBehaviour:
