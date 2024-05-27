@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace ImmersivePiano.MIDI
 {
@@ -21,19 +22,41 @@ namespace ImmersivePiano.MIDI
         [SerializeField] int noteValue;
         [SerializeField] long duration;
         [SerializeField] int velocity;
-        [SerializeField] bool isPlayed = false;
         [SerializeField] MidiStreamPlayer midiStreamPlayer;
 
         [Header("Reference")]
         [SerializeField] MPTKEvent note;
         [SerializeField] Transform originalPos;
+        [SerializeField] MIDIKey matchingKey;
 
+        private Transform par;
         private float speed;
+        private bool _isSpawnedDone;
+        private float _pressStartTime;
         //private float delta = 0f;
-        //private Vector3 initialScale;
+        //private Vector3 initialScale
+        //
 
+        public MIDIKey MIDIKey
+        {
+            get { return matchingKey; }
+            set { matchingKey = value; }
+        }
+
+        public bool IsSpawnedDone
+        {
+            get { return _isSpawnedDone; }
+            set { _isSpawnedDone = value; }
+        }
+
+        public float PressStartTime
+        {
+            get { return _pressStartTime; }
+            set { _pressStartTime = value; }
+        }
         private void Awake()
         {
+            par = transform.parent;
             //initialScale = transform.localScale;
         }
 
@@ -58,30 +81,78 @@ namespace ImmersivePiano.MIDI
         {
             return this.note;
         }
-        private void Update()
+        public void SpawnedNoteLengthAdjust(MIDIKey selfkey)
         {
-            if (transform.position.z <= 0.25f)
-            {
-                midiStreamPlayer.MPTK_PlayEvent(note); //
-                Destroy(gameObject);
-            }
-            //else
+            MIDIKey = selfkey;
+            //while (matchingKey.IsPressed)
             //{
-            //    float distance = Mathf.Abs(transform.position.z - pianoBarZPosition); // Replace with actual bar Z position
-            //    float volume = Mathf.Clamp01(1 - distance / triggerDistance); // Adjust triggerDistance as needed
-            //    //midiStreamPlayer.SetVolume(volume); //distance based fading
+            //    var par = gameObject.transform.parent;
+            //    float temp = par.transform.localScale.y;
+            //    par.transform.localScale = new Vector3(1f, temp += MIDISystemManagement.instance.speed * 2, 1f);
+            //    //par.transform.localScale = new Vector3(1f, temp += MIDISystemManagement.instance.speed * Time.deltaTime / 1000f, 1f);
+
             //}
         }
-
         public void NoteLenghtAdjust()
         {
             var par = gameObject.transform.parent;
-            par.transform.localScale = new Vector3(1, 1, duration / 10);
+            par.transform.localScale = new Vector3(1, 1, duration / 8);
         }
+
+        //Destroy, scale up the note
+        private void Update()
+        {
+            if (MIDISystemManagement.instance.IsFreestyle)
+            {
+                if (transform.position.z >= MIDISystemManagement.instance.GetSpawnPos().position.z)
+                {
+                    Destroy(par.gameObject);
+                }
+                //Scale up the note if Freestyle
+                if (!IsSpawnedDone)
+                {
+                    //Vector3 scale = par.localScale;
+                    //scale.z += MIDISystemManagement.instance.speed * 2 * Time.deltaTime;
+                    //par.localScale = scale;
+                    Vector3 scale = transform.localScale;
+                    scale.y += MIDISystemManagement.instance.Speed * 2 * Time.deltaTime;
+                    transform.localScale = scale;
+                }
+            }
+            else
+            {
+                if (transform.position.z <= MIDISystemManagement.instance.GetEndPos().position.z)
+                {
+                    midiStreamPlayer.MPTK_PlayEvent(note); //
+                    Destroy(par.gameObject);
+                }
+            }
+        }
+
+        //Move the note
         private void FixedUpdate()
         {
-            float translation = Time.deltaTime * MIDISystemManagement.instance.speed;
-            transform.Translate(0, translation, 0);
+            if (MIDISystemManagement.instance.IsFreestyle)
+            {
+                if(!IsSpawnedDone)
+                {
+                    float translation = Time.deltaTime * MIDISystemManagement.instance.Speed;
+                    transform.Translate(0, -translation, 0);
+                }
+                else
+                {
+                    float translation = Time.deltaTime * MIDISystemManagement.instance.Speed * 2;
+                    transform.Translate(0, -translation, 0);
+                }
+                //par.Translate(0, 0, translation);;
+            }
+            else
+            {
+                float translation = Time.deltaTime * MIDISystemManagement.instance.Speed;
+                transform.Translate(0, translation, 0);
+                //par.Translate(0, 0, -translation);
+
+            }
         }
 
 

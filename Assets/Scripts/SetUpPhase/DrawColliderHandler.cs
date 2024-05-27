@@ -11,7 +11,7 @@ public class DrawColliderHandler : MonoBehaviour
     public GetPointerHandler getPointerHandler;
     private bool isDrawing = false;
 
-    [SerializeField] GameObject colliderPrefab;
+    [SerializeField] GameObject pianoPrefab;
     private Vector3 initPoint;
     private Vector3 endPoint;
     private bool colliderSpawned = false;
@@ -45,7 +45,7 @@ public class DrawColliderHandler : MonoBehaviour
         }
         else
         {
-            //colliderPrefab.SetActive(false); // Disable the collider until it's needed again
+            //pianoPrefab.SetActive(false); // Disable the collider until it's needed again
         }
 
         if (count >= 2 && !colliderSpawned)
@@ -75,7 +75,7 @@ public class DrawColliderHandler : MonoBehaviour
     {
         isDrawing = true;
         DrawLine();
-        colliderPrefab.SetActive(true); // Activate the collider when drawing starts
+        pianoPrefab.SetActive(true); // Activate the collider when drawing starts
     }
 
     public void InitCollider(Vector3 init, Vector3 end)
@@ -99,6 +99,6 @@ public class DrawColliderHandler : MonoBehaviour
     IEnumerator SpawnPiano(Vector3 center, Quaternion rotation)
     {
         yield return new WaitForSeconds(1);
-        colliderPrefab.transform.SetPositionAndRotation(center, rotation);
+        pianoPrefab.transform.SetPositionAndRotation(center, rotation);
     }
 }

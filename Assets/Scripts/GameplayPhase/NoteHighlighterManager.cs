@@ -3,20 +3,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NoteHighlighterManager : MonoBehaviour
+public class NoteHighlighterManager : Singleton<NoteHighlighterManager>
 {
     [SerializeField] private ParticleSystem _particleSystem;
-    [SerializeField] private List<MusicNotes> _musicNotes;
-
+    //[SerializeField] private List<MusicNotes> _musicNotes;
+    //public string[] NoteSequence { get; private set; }
     private GameObject[] _keys;
 
-    private MusicNotes _currentMusicNote;
+    //private MusicNotes _currentMusicNote;
     private string[] _currentNoteSequence;
-    private List<GameObject> _currentHighlighters;
-    private List<GameObject> _currentPages;
+    //private List<GameObject> _currentHighlighters;
+    //private List<GameObject> _currentPages;
 
     private int _hilighterCounter;
-    private int _pageCounter;
+    //private int _pageCounter;
     private GameObject _currentKey;
     private bool _isPaused = false;
 
@@ -24,19 +24,26 @@ public class NoteHighlighterManager : MonoBehaviour
     private void Awake()
     {
         _hilighterCounter = 0;
-        _pageCounter = 0;
+        //_pageCounter = 0;
         PrepareKeys();
     }
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
             SetNextKey();
     }
 
     private void PrepareKeys()
     {
-        _keys = GameObject.FindGameObjectsWithTag("Key");
+        try
+        {
+            _keys = GameObject.FindGameObjectsWithTag("Key");
+        }
+        catch(Exception e)
+        {
+            Debug.LogError(e.Message);
+        }
         foreach (GameObject key in _keys)
         {
             Debug.Log(key.name);
@@ -46,7 +53,7 @@ public class NoteHighlighterManager : MonoBehaviour
 
     public void SetNextKey()
     {
-        if (_currentNoteSequence.Length == 0 || _hilighterCounter >= _currentNoteSequence.Length)
+        if (_currentNoteSequence.Length == 0)
             return;
 
         var currentNote = _currentNoteSequence[_hilighterCounter];
@@ -57,8 +64,8 @@ public class NoteHighlighterManager : MonoBehaviour
         }
 
         _hilighterCounter++;
-        
-        if(CheckForPageSeparators())
+
+        if (CheckForPageSeparators())
             return;
 
         if (CheckForWin())
@@ -67,31 +74,31 @@ public class NoteHighlighterManager : MonoBehaviour
         SetNextHighligher();
     }
 
-    
+
 
     private void SetNextHighligher()
     {
-        if(_currentHighlighters.Count == 0 || _hilighterCounter == _currentHighlighters.Count)
-            return;
-        
+        //if (_currentHighlighters.Count == 0 || _hilighterCounter == _currentHighlighters.Count)
+        //    return;
+
         // Highlighting notes on pages
-        var currentHighlighter = _currentHighlighters[_hilighterCounter];
-        foreach (GameObject highlighter in _currentHighlighters)
-        {
-            highlighter.SetActive(false);
-        }
-        _currentHighlighters[_hilighterCounter].SetActive(true);
-        
+        //var currentHighlighter = _currentHighlighters[_hilighterCounter];
+        //foreach (GameObject highlighter in _currentHighlighters)
+        //{
+        //    highlighter.SetActive(false);
+        //}
+        //_currentHighlighters[_hilighterCounter].SetActive(true);
+
         // Highlighting keys on piano
         foreach (GameObject key in _keys)
         {
-            if(key.GetComponent<Key>().child1 != null)
+            if (key.GetComponent<Key>().child1 != null)
                 key.GetComponent<Key>().child1.SetActive(false);
         }
-        
+
         foreach (GameObject key in _keys)
         {
-            if(key.GetComponent<Key>().child1 != null && key.GetComponent<Key>().keyName == _currentNoteSequence[_hilighterCounter])
+            if (key.GetComponent<Key>().child1 != null && key.GetComponent<Key>().keyName == _currentNoteSequence[_hilighterCounter])
                 key.GetComponent<Key>().child1.SetActive(true);
         }
     }
@@ -102,15 +109,15 @@ public class NoteHighlighterManager : MonoBehaviour
         {
             _particleSystem.Play();
             Debug.Log("Particle");
-            
-            foreach (GameObject highlighter in _currentHighlighters)
+
+            //foreach (GameObject highlighter in _currentHighlighters)
+            //{
+            //    highlighter.SetActive(false);
+            //}
+
+            foreach (GameObject key in _keys)
             {
-                highlighter.SetActive(false);
-            }
-            
-            foreach (GameObject  key in _keys)
-            {
-                if(key.GetComponent<Key>().child1 != null)
+                if (key.GetComponent<Key>().child1 != null)
                     key.GetComponent<Key>().child1.SetActive(false);
             }
 
@@ -118,96 +125,101 @@ public class NoteHighlighterManager : MonoBehaviour
         }
         return false;
     }
-    
+
     private bool CheckForPageSeparators()
     {
-        if (_currentMusicNote.PageSeparatorsByNote.Length == 0)
-            return false;
+        //if (_currentMusicNote.PageSeparatorsByNote.Length == 0)
+        //    return false;
 
-        foreach (int pageSeparator in _currentMusicNote.PageSeparatorsByNote)
-        {
-            if (pageSeparator == _hilighterCounter)
-            {
-                PauseHighlighing();
-                return true;
-            }
-        }
+        //foreach (int pageSeparator in _currentMusicNote.PageSeparatorsByNote)
+        //{
+        //    if (pageSeparator == _hilighterCounter)
+        //    {
+        //        PauseHighlighing();
+        //        return true;
+        //    }
+        //}
 
         return false;
     }
-    
-    void SetNextPage()
-    {
-        if(_currentPages.Count == 0 || _pageCounter == _currentPages.Count)
-            return;
 
-        foreach (GameObject currentPage in _currentPages)
-        {
-            currentPage.SetActive(false);
-        }
-        
-        _currentPages[_pageCounter].SetActive(true);
-        _pageCounter++;
-    }
+    //void SetNextPage()
+    //{
+    //    if(_currentPages.Count == 0 || _pageCounter == _currentPages.Count)
+    //        return;
+
+    //    foreach (GameObject currentPage in _currentPages)
+    //    {
+    //        currentPage.SetActive(false);
+    //    }
+
+    //    _currentPages[_pageCounter].SetActive(true);
+    //    _pageCounter++;
+    //}
 
     void PauseHighlighing()
     {
         _isPaused = true;
-        foreach (GameObject highlighter in _currentHighlighters)
-        {
-            highlighter.SetActive(false);
-        }
+        //foreach (GameObject highlighter in _currentHighlighters)
+        //{
+        //    highlighter.SetActive(false);
+        //}
         foreach (GameObject key in _keys)
         {
-            if(key.GetComponent<Key>().child1 != null)
+            if (key.GetComponent<Key>().child1 != null)
                 key.GetComponent<Key>().child1.SetActive(false);
         }
-        _currentMusicNote.pageTurner.SetActive(true);
+        //_currentMusicNote.pageTurner.SetActive(true);
     }
 
     void ResumeHilighting()
     {
         _isPaused = false;
         SetNextHighligher();
-        SetNextPage();
-        _currentMusicNote.pageTurner.SetActive(false);
+        //SetNextPage();
+        //_currentMusicNote.pageTurner.SetActive(false);
     }
-    
+
     //Editor UnityEvent
     public void CheckKey()
     {
-        if( Key.LastPressedKey == null || _currentNoteSequence == null)
+        if (Key.LastPressedKey == null || _currentNoteSequence == null)
             return;
-        
+
         if (!_isPaused && Key.LastPressedKey == _currentNoteSequence[_hilighterCounter])
         {
             SetNextKey();
         }
     }
-    
+
     public void RestartNotes()
     {
         _hilighterCounter = 0;
-        _pageCounter = 0;
-        TurnPage._isChecking = false;
+        //_pageCounter = 0;
+        //TurnPage._isChecking = false;
         _isPaused = false;
-        _currentMusicNote.pageTurner.SetActive(false);
+        //_currentMusicNote.pageTurner.SetActive(false);
         SetNextHighligher();
-        SetNextPage();
+        //SetNextPage();
     }
 
     //Editor UnityEvent
-    public void SetSong(int songNumber)
+    public void SetSong(Songs song)
     {
-        if (_currentMusicNote != null)
-            _currentMusicNote.DeactivatePagesAndHighlighers();
+        //if (_currentMusicNote != null)
+        //    _currentMusicNote.DeactivatePagesAndHighlighers();
 
-        _currentMusicNote = _musicNotes[songNumber];
-        _currentNoteSequence = _musicNotes[songNumber].NoteSequence;
-        _currentHighlighters = _musicNotes[songNumber].Hilighters;
-        _currentPages = _musicNotes[songNumber].Pages;
-        
+        //_currentMusicNote = _musicNotes[songNumber];
+        //_currentNoteSequence = _musicNotes[songNumber].NoteSequence;
+        //_currentHighlighters = _musicNotes[songNumber].Hilighters;
+        //_currentPages = _musicNotes[songNumber].Pages;
+        GetNoteSequence(song);
         RestartNotes();
+    }
+
+    private void GetNoteSequence(Songs song)
+    {
+        _currentNoteSequence = Music.GetNotes(song);
     }
 
     private void OnEnable()
@@ -223,18 +235,19 @@ public class NoteHighlighterManager : MonoBehaviour
     public void ExitPlayingMode()
     {
         _isPaused = true;
-        foreach (GameObject highlighter in _currentHighlighters)
-        {
-            highlighter.SetActive(false);
-        }
+        //foreach (GameObject highlighter in _currentHighlighters)
+        //{
+        //    highlighter.SetActive(false);
+        //}
         foreach (GameObject key in _keys)
         {
-            if(key.GetComponent<Key>().child1 != null)
+            if (key.GetComponent<Key>().child1 != null)
                 key.GetComponent<Key>().child1.SetActive(false);
         }
-        foreach (GameObject currentPage in _currentPages)
-        {
-            currentPage.SetActive(false);
-        }
+        //foreach (GameObject currentPage in _currentPages)
+        //{
+        //    currentPage.SetActive(false);
+        //}
+
     }
 }

@@ -1,10 +1,15 @@
+using ImmersivePiano.Interaction.Editor.QuickActions;
 using MidiPlayerTK;
 using MPTK.NAudio.Midi;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
+using System.Threading;
+using System.Threading.Tasks;
+using UnityEditor;
 using UnityEngine;
+using static DirectorySyncer;
+using CancellationToken = System.Threading.CancellationToken;
 
 namespace ImmersivePiano.MIDI
 {
@@ -22,7 +27,8 @@ namespace ImmersivePiano.MIDI
         [SerializeField] GameObject spawnParent;
         [SerializeField] GameObject notesStorage;
         [SerializeField] Transform endPos;
-        public float speed = 0.65f;
+        [SerializeField] bool freestyle;
+        private float speed;
 
         [Header("System tweaks")]
         //[SerializeField] Material spawnColor;
@@ -38,9 +44,36 @@ namespace ImmersivePiano.MIDI
         private int denumerator;
         private int curTempo = 500000;
         private int deltaTicksPerQuarterNote;
+        private float _spawnOffset = 0.02f;
+
+
+        private float _initFreestyleSpeed = 0.1f;
+        private float _initPracticeSpeed = 0.5f;
+        //private MIDIKey[] _keys;
+
         #endregion
 
+        public bool IsFreestyle
+        {
+            get { return freestyle; }
+            set
+            {
+                freestyle = value;
+                speed = freestyle ? _initFreestyleSpeed : _initPracticeSpeed;
+                Debug.Log($"Current Speed : {speed}");
+            }
+        }
 
+        public float Speed
+        {
+            get { return speed; }
+            set { speed = value; }
+        }
+        //public MIDIKey[] Keys
+        //{
+        //    get { return _keys; }
+        //    set { _keys = value; }
+        //}
         private void Start()
         {
             if (midiFilePlayer == null)
@@ -63,6 +96,8 @@ namespace ImmersivePiano.MIDI
             {
                 deltaTicksPerQuarterNote = 48;
             }
+            speed = IsFreestyle ? _initFreestyleSpeed : _initPracticeSpeed;
+            //Keys = FindObjectsOfType<MIDIKey>();
         }
         private void Update()
         {
@@ -74,10 +109,15 @@ namespace ImmersivePiano.MIDI
         /// </summary>
         /// <param name="events"></param>
         /// <returns></returns>
-        public IEnumerator SpawningNotes(List<MPTKEvent> events)
+        public IEnumerator SpawningNotes(List<MPTKEvent> events, CancellationToken cancellationToken)
         {
+            yield return new WaitForSeconds(3);
             foreach (MPTKEvent e in events)
             {
+                if (cancellationToken.IsCancellationRequested)
+                {
+                    yield break;
+                }
                 switch (e.Command)
                 {
                     //Extract the note data
@@ -89,6 +129,7 @@ namespace ImmersivePiano.MIDI
 
                             #region Spawning, customizing the notes
                             MIDINote newNote = Instantiate(notePrefab, t.position, Quaternion.Euler(0, 0, 0), notesStorage.transform).transform.GetChild(0).GetComponent<MIDINote>();
+                            //newNote.gameObject.name = e.Value.ToString();
                             newNote.MIDINoteSet(e.RealTime, e.Value, e.Duration, e.Velocity, speed);
                             newNote.gameObject.SetActive(true);
                             newNote.hideFlags = HideFlags.HideInHierarchy;
@@ -96,7 +137,7 @@ namespace ImmersivePiano.MIDI
                             newNote.SetMPTKEvent(e);
                             #endregion
 
-                            StartCoroutine(StartFlowingAfter(e.RealTime, newNote.gameObject));
+                            StartCoroutine(StartFlowingAfter(e.RealTime, newNote.gameObject,cancellationToken));
                         }
                         break;
 
@@ -137,16 +178,61 @@ namespace ImmersivePiano.MIDI
             yield return null;
         }
 
-        public IEnumerator StartFlowingAfter(float NoteActivationTime, GameObject note)
+        /// <summary>
+        /// Spawn a note by the time of a key being pressed
+        /// </summary>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        public MIDINote SpawningNote(Transform t, MIDIKey key)
+        {
+            if (freestyle)
+            {
+                try
+                {
+                    Vector3 pos = t.position;
+                    pos.z += _spawnOffset;
+                    //GameObject note = Instantiate(AssetDatabase.LoadMainAssetAtPath(AssetDatabase.GUIDToAssetPath(AssetDBs.NoteFake.AssetGUID)), t) as GameObject;
+                    MIDINote note = Instantiate(notePrefab, pos, /*Quaternion.Euler(0, 0, 0)*/Quaternion.identity, notesStorage.transform).transform.GetChild(0).GetComponent<MIDINote>();
+                    note.transform.parent.localRotation = Quaternion.identity;
+                    note.name = $"NoteKey {key.KeyValue}";
+                    return note;
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError(e.ToString());
+                }
+            }
+            return null;
+        }
+
+        public void ClearPreviousSong()
+        {
+            StopAllCoroutines();
+            midiFilePlayer.MPTK_ClearAllSound();
+            foreach (Transform child in notesStorage.transform)
+            {
+                Destroy(child.gameObject);
+            }
+        }
+        public IEnumerator StartFlowingAfter(float NoteActivationTime, GameObject note, CancellationToken cancellationToken)
         {
             note.SetActive(false);
             yield return new WaitForSeconds(NoteActivationTime / 1000);
+            if (cancellationToken.IsCancellationRequested)
+            {
+                yield break;
+            }
             note.SetActive(true);
         }
         public IEnumerator StartFlowingAfter(float NoteActivationTime, float newSpeed)
         {
             yield return new WaitForSeconds(NoteActivationTime / 1000);
-            speed = newSpeed;
+            if (speed != newSpeed)
+            {
+                //speed = Mathf.Lerp(speed, newSpeed, Time.deltaTime);
+                speed = newSpeed;
+                //speed = lerpValue;
+            }
             Debug.Log($"New Speed : {speed}");
         }
         public List<Transform> getTransformList()
@@ -160,9 +246,9 @@ namespace ImmersivePiano.MIDI
         }
         float CalculateSpeed()
         {
-            float temp1 = (float)curTempo / 1000000f;
+            float temp1 = (float)curTempo / 1000000f; 
 
-            // Calculate temp2
+            // Calculate distance
             var temp2 = spawnParent.transform.position.z - endPos.position.z;
 
             // Check for zero before division
@@ -179,6 +265,15 @@ namespace ImmersivePiano.MIDI
             return midiStreamPlayer;
         }
 
+        public Transform GetEndPos()
+        {
+            return endPos;
+        }
+
+        public Transform GetSpawnPos()
+        {
+            return spawnParent.transform;
+        }
     }
 }
 

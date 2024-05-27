@@ -9,13 +9,16 @@ using System;
 using Unity.VisualScripting;
 using ImmersivePiano.MIDI;
 using System.Linq;
+using System.Threading;
+using static DirectorySyncer;
+using CancellationTokenSource = System.Threading.CancellationTokenSource;
 
 namespace ImmersivePiano.MIDI
 {
     /// <summary>
     /// @brief Handlen the MIDI File reading process
     /// </summary>
-    public class MIDIReadHandler : MonoBehaviour
+    public class MIDIReadHandler : Singleton<MIDIReadHandler>
     {
         [Header("Reference")]
         /// <summary>
@@ -31,7 +34,14 @@ namespace ImmersivePiano.MIDI
 
 
         #region Private props
-        private string _midiFileName = "Yiruma - Rivers Flow In You _1_";
+        private string _midiFileName;
+        private CancellationTokenSource _cancellationTokenSource;
+        private MidiLoad _midiLoad = null;
+        public string midiFileName
+        {
+            get { return _midiFileName;}
+            set { _midiFileName = value; }  
+        }
         //private List<MPTKEvent> events = new List<MPTKEvent>();
         private List<MPTKEvent> eventsCollected = new List<MPTKEvent>();
         private List<Transform> spawnPos;
@@ -63,25 +73,41 @@ namespace ImmersivePiano.MIDI
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                ReadMidiFileAsync();
+                //ReadMidiFileAsync();
+                bool temp = MIDISystemManagement.instance.IsFreestyle;
+                MIDISystemManagement.instance.IsFreestyle = !temp;
             }
         }
 
         /// <summary>
         /// Start reading the MIDI FIle
         /// </summary>
-        async void ReadMidiFileAsync()
+        public void ReadMidiFileAsync()
         {
+            //Cancel any ongoing coroutines
+            if (_cancellationTokenSource != null)
+            {
+                _cancellationTokenSource.Cancel();
+                _cancellationTokenSource.Dispose();
+            }
+
+            _cancellationTokenSource = new CancellationTokenSource();
+            manager.ClearPreviousSong();
+
+
             midiFilePlayer.MPTK_MidiName = _midiFileName;
             //Get all MIDI events before start playing
-            MidiLoad result = midiFilePlayer.MPTK_Load();
-            if (result != null)
+            //MidiLoad result = midiFilePlayer.MPTK_Load();
+            midiFilePlayer.MPTK_Load();
+            if (midiFilePlayer.midiLoaded != null)
             {
-                Debug.Log($"Collected {result.MPTK_ReadMidiEvents().Count} events in the midi File");
-                await Task.Delay(TimeSpan.FromSeconds(3));
-                StartCoroutine(manager.SpawningNotes(result.MPTK_ReadMidiEvents()));
+                //Debug.Log($"Collected {midiFilePlayer.midiLoaded.MPTK_ReadMidiEvents().Count} events in the midi File");
+                //await Task.Delay(TimeSpan.FromSeconds(3));
+                //StartCoroutine(manager.SpawningNotes(midiFilePlayer.midiLoaded.MPTK_ReadMidiEvents(), _cancellationTokenSource.Token));
+                Debug.Log($"Collected {midiFilePlayer.MPTK_MidiEvents.Count} events in the midi File");
+                //await Task.Delay(TimeSpan.FromSeconds(3));
+                StartCoroutine(manager.SpawningNotes(midiFilePlayer.MPTK_MidiEvents, _cancellationTokenSource.Token));
             }
-            //midiFilePlayer.MPTK_Play();
         }
 
 

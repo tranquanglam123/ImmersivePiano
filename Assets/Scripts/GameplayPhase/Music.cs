@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Newtonsoft.Json.Serialization;
 using Oculus.Platform.Models;
 using UnityEngine;
 
+/// <summary>
+/// Notes DB of songs
+/// </summary>
 public static class Music
 {   //lv0 
     //private static string[] _twinkleLittleStar = new string[28]
@@ -67,7 +71,7 @@ public static class Music
        "72","77","74","58","74","77","74","72","53","57","60","72","53","72","69","57","60",
        "72","74","53","72","69","57","60","67","48","70","69","52","55","67","65","53",
    };
-    private static string[] _downInTheValley= new string[]
+    private static string[] _downInTheValley = new string[]
     {
         "67","55","71","59","62","74","59","62","77","55","59","62","59","62","74","55","59","62",
         "59","62","71","55","72","59","62","74","59","62","72","48","55","60","64","55","60","64",
@@ -222,7 +226,7 @@ public static class Music
     {
         "60","48","60","43","60","48","62","64","43","64","48","62","64","43","65","67","50","43","72","48","72","72","67","52","67","67","64","55","64","64","60","58","60","60","67","57","65","64","59","62","60","60","48","60","48","60","43","60","48","62","64","43","64","48","62","64","43","65","67","48","43","72","48","72","72","67","52","67","67","64","55","64","64","60","52","60","60","67","48","65","64","43","62","60","48","43",
     };
-    private static string[] _overTheRiver= new string[]
+    private static string[] _overTheRiver = new string[]
     {
         "64","67","48","55","64","67","64","67","48","55","64","67","48","55","60","64","62","65","48","55","64","67","48","55","64","67","48","55","64","67","48","55","64","67","48","55","65","72","48","57","65","72","48","57","65","71","48","57","65","69","48","57","64","67","48","55","48","55","48","55","64","67","48","55","59","65","43","55","59","65","43","55","59","65","43","55","59","65","43","55","60","64","48","55","60","64","48","55","60","64","48","55","60","64","48","55","60","62","50","54","60","62","50","54","60","62","50","54","60","64","50","54","59","62","55","54","55","59","62","67","43","64","67","48","55","64","67","64","67","48","55","64","67","48","55","60","64","62","65","48","55","64","67","48","55","64","67","48","55","64","67","48","55","64","67","48","55","65","72","48","57","65","72","65","72","48","57","65","71","48","57","65","69","48","57","64","67","48","55","48","55","48","55","64","67","48","55","60","72","57","60","72","57","60","71","55","60","69","53","60","67","52","60","64","48","60","45","54","62","60","64","43","55","59","65","43","55","59","64","43","53","59","62","43","53","52","55","60","48","47","48","36",
     };
@@ -276,7 +280,7 @@ public static class Music
     {
         "71","69","67","55","59","67","55","59","67","55","59","59","60","59","62","59","62","59","62","67","69","71","55","59","71","55","59","71","55","59","67","69","71","54","60","69","54","60","69","54","60","71","69","67","55","59","67","55","59","67","55","59","59","60","59","62","59","62","59","62","67","69","71","55","59","74","76","74","55","59","71","67","69","71","54","60","69","54","60","67","55","59","71","55","59","74","71","74","74","71","55","59","74","71","74","55","59","72","60","64","76","72","76","76","72","60","64","76","72","76","60","64","79","67","79","67","74","62","74","62","71","59","71","59","69","57","67","69","71","55","59","74","76","74","55","59","71","67","69","71","54","60","69","54","60","67","55","59",
     };
- 
+
     private static string[] _daisyBell = new string[]
     {
         "60","65","53","57","60","69","57","60","64","67","48","65","53","57","60","69","57","60","64","67","48","69","70","72","53","69","57","60","65","57","60","67","48","52","55","60","52","55","65","53","57","60","48","57","60","45","57","60","41","72","53","65","69","65","69","69","48","60","65","60","65","65","45","57","60","57","60","60","41","53","57","53","57","62","46","64","50","53","65","50","53","62","46","50","53","65","50","53","60","41","53","57","48","53","57","45","41","53","57","53","57","67","52","60","64","60","64","72","48","64","67","64","67","69","41","53","60","65","60","65","65","38","50","57","62","57","62","62","43","64","53","55","65","53","55","67","43","53","55","69","53","55","67","48","52","55","52","55","48","52","55","69","52","55","70","52","69","55","58","67","55","58","72","48","52","58","69","52","58","67","53","65","57","60","57","60","53","57","60","67","57","60","69","50","53","57","65","53","57","62","46","50","58","65","50","58","62","41","60","48","57","48","57","40","52","55","60","52","55","65","53","57","60","69","57","60","64","67","48","65","53","57","60","69","57","60","67","48","69","70","72","53","69","57","60","65","57","60","67","48","52","55","60","52","55","65","53","57","60","48","57","60","45","57","60","41",
@@ -511,12 +515,98 @@ public static class Music
     {
         switch (songNumber)
         {
-/*            case Songs.TwinkleLittleStar:
-                return _twinkleLittleStar;*/
-            case Songs.MaryHadALittleLamb:
+            /*            case Songs.TwinkleLittleStar:
+                            return _twinkleLittleStar;*/
+            case Songs.ATisketATasket:
+                return _aTisketATasket;
+            case Songs.arirang:
+                return _arirang;
+            case Songs.BlowTheManDown:
+                return _blowTheManDown;
+            case Songs.camptown_races:
+                return _camptownRaces;
+            case Songs.down_in_the_valley:
+                return _downInTheValley;
+            case Songs.Drinktomeonlywiththineeyes:
+                return _drinkToMeOnlyWithThineEyes;
+            case Songs.evening_bells_PNO:
+                return _eveningBells;
+            case Songs.Five_Little_Ducks:
+                return _fiveLittleDucks;
+            case Songs.Go_Tell_It_On_The_Mountain:
+                return _goTellItOnTheMountain;
+            case Songs.grandfatherClock:
+                return _grandFatherClock;
+            case Songs.happy_birthday_to_you:
+                return _happyBirthdayToYou;
+            case Songs.House_of_the_rising_sun:
+                return _houseOfTheRisingSun;
+            case Songs.hushlittlebaby_PNO:
+                return _hushLittleBaby;
+            case Songs.long_long_ago_PNO:
+                return _longLongAgo;
+            case Songs.what_can_the_matter_PNO:
+                return _whatCanTheMatter;
+            case Songs.amazing_grace:
+                return _amazingGrace;
+            case Songs.hot_cross_bunsPNO:
+                return _HotCrossBuns;
+            case Songs.london_bridge:
+                return _londonBridge;
+            case Songs.mary_had_a_little_lamb_PNO:
                 return _maryHadALittleLamb;
-            case Songs.JingleBells:
-                return _jingleBells;
+            case Songs.offenbach_barcarole:
+                return _offenBachBarcarole;
+            case Songs.clementine_PNO:
+                return _clementine;
+            case Songs.coming_round_the_mountain_PNO:
+                return _comingRoundTheMountain;
+            case Songs.over_the_river_PNO:
+                return _overTheRiver;
+            case Songs.rock_of_ages_PNO:
+                return _rockOfAges;
+            case Songs.row_row_row_PNO:
+                return _rowRowRow;
+            case Songs.auld_lang_syne_PNO:
+                return _auldLangSyne;
+            case Songs.my_bonnie:
+                return _myBonnie;
+            case Songs.on_top_of_old_smokey_pno:
+                return _onTopOfOldSmokey;
+            case Songs.red_river_valley_PNO:
+                return _redRiverValley;
+            case Songs.twinkle_twinkle:
+                return _twinkleTwinkle;
+            case Songs.beautiful_dreamer_pno:
+                return _beautifulDreamer;
+            case Songs.daisy_bell:
+                return _daisyBell;
+            case Songs.jasmine_flower_PNO:
+                return _jasmineFlower;
+            case Songs.nearer_my_god:
+                return _nearerMyGod;
+            case Songs.turkey_in_the_strawPNO:
+                return _turkeyInTheStraw;
+            case Songs.alongwithmyloveillgo:
+                return _alongWithMyLoveIWillGo;
+            case Songs.BotanyBay:
+                return _botanyBay;
+            case Songs.OverTheWaves:
+                return _overTheWaves;
+            case Songs.takemeouttotheballgame:
+                return _takeMeOutToTheBallGame;
+            case Songs.YirumaRiversFlowInYou:
+                return _riverFlowsInYou;
+            case Songs.AuldLangSyne:
+                return _auldLangSyne;
+            case Songs.BelieveMeIfAllThoseEndearingYoungCharms:
+                return _believeMeIfAllThoseEndearingYoungCharms;
+            case Songs.bellabimba:
+                return _bellaBimba;
+            case Songs.jeaniewiththelightbrownhair:
+                return _jeanieWithTheLightBrownHair;
+            case Songs.listentothemockingbird:
+                return _listenToTheMockingbird;
             default:
                 return new string[0];
         }
@@ -524,7 +614,49 @@ public static class Music
 }
 public enum Songs
 {
-    TwinkleLittleStar,
-    MaryHadALittleLamb,
-    JingleBells
+    ATisketATasket,
+    arirang,
+    BlowTheManDown,
+    camptown_races,
+    down_in_the_valley,
+    Drinktomeonlywiththineeyes,
+    evening_bells_PNO,
+    Five_Little_Ducks,
+    Go_Tell_It_On_The_Mountain,
+    grandfatherClock,
+    happy_birthday_to_you,
+    House_of_the_rising_sun,
+    hushlittlebaby_PNO,
+    long_long_ago_PNO,
+    what_can_the_matter_PNO,
+    amazing_grace,
+    hot_cross_bunsPNO,
+    london_bridge,
+    mary_had_a_little_lamb_PNO,
+    offenbach_barcarole,
+    clementine_PNO,
+    coming_round_the_mountain_PNO,
+    over_the_river_PNO,
+    rock_of_ages_PNO,
+    row_row_row_PNO,
+    auld_lang_syne_PNO,
+    my_bonnie,
+    on_top_of_old_smokey_pno,
+    red_river_valley_PNO,
+    twinkle_twinkle,
+    beautiful_dreamer_pno,
+    daisy_bell,
+    jasmine_flower_PNO,
+    nearer_my_god,
+    turkey_in_the_strawPNO,
+    alongwithmyloveillgo,
+    BotanyBay,
+    OverTheWaves,
+    takemeouttotheballgame,
+    YirumaRiversFlowInYou,
+    AuldLangSyne,
+    BelieveMeIfAllThoseEndearingYoungCharms,
+    bellabimba,
+    jeaniewiththelightbrownhair,
+    listentothemockingbird
 }

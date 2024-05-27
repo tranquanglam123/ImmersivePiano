@@ -19,8 +19,8 @@ public class MusicNotes : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GetPages();
-        GetHilighters();
+        //GetPages();
+        //GetHilighters();
         GetNoteSequence();
         DeactivatePagesAndHighlighers();
         pageTurner.SetActive(false);

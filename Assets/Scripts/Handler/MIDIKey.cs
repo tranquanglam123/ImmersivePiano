@@ -1,9 +1,11 @@
 using ImmersivePiano.MIDI;
 using MidiPlayerTK;
 using Oculus.Interaction;
+using Oculus.Platform;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -14,7 +16,9 @@ namespace ImmersivePiano
         
         [SerializeField] int keyValue;
         private MPTKEvent noteEvent;
-
+        private bool isNoteSpawned = false;
+        private bool _isPressed;
+        private MIDINote curVisualizedNote;
         #region MPTKEvent params
         private MPTKCommand command = MPTKCommand.NoteOn;
         private int channel = 0;
@@ -23,6 +27,17 @@ namespace ImmersivePiano
         private long delay = 0;
         #endregion
 
+        public int KeyValue
+        {
+            get { return keyValue; }
+            set { keyValue = value; }
+        }
+
+        public bool IsPressed
+        {
+            get { return _isPressed; }
+            set { _isPressed = value; }
+        }
 
         private void OnEnable()
         {
@@ -46,11 +61,27 @@ namespace ImmersivePiano
         public void Press()
         {
             MIDISystemManagement.instance.GetMidiStreamPlayer().MPTK_PlayEvent(noteEvent);
+            if(!isNoteSpawned )
+            {
+                MIDINote newnote = MIDISystemManagement.instance.SpawningNote(transform, this);
+                //newnote.SpawnedNoteLengthAdjust(this);
+                newnote.PressStartTime = Time.time;
+                curVisualizedNote = newnote;
+                curVisualizedNote.IsSpawnedDone = false;
+                isNoteSpawned = true;
+                IsPressed = true;
+            }
+            
         }
 
         public void StopPressing()
         {
             MIDISystemManagement.instance.GetMidiStreamPlayer().MPTK_StopEvent(noteEvent);
+            isNoteSpawned=false;
+            IsPressed = false;
+            curVisualizedNote.IsSpawnedDone = true;
+            curVisualizedNote = null; 
         }
+
     }
 }
