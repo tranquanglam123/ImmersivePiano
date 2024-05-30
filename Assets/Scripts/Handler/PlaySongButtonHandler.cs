@@ -25,7 +25,7 @@ public class PlaySongButtonHandler : Singleton<PlaySongButtonHandler>
             ToggleValueChanged();
         });
     }
-
+        
     private void ToggleValueChanged()
     {
         try
@@ -34,9 +34,9 @@ public class PlaySongButtonHandler : Singleton<PlaySongButtonHandler>
             MIDIReadHandler.instance.midiFileName = _curSong;
             MIDIReadHandler.instance.ReadMidiFileAsync();
             Songmenu.SetActive(false);
-        }
+    }
         catch (Exception ex)
-        {
+    {
             Debug.LogException(ex);
         }
     }
