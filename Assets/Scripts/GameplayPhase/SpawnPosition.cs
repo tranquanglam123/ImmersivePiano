@@ -31,7 +31,7 @@ public class SpawnPosition : MonoBehaviour
         //dialog should be the same height as the player, 30 centimeters away from them, straight ahead, 20 centimeters above the note sheet
         Vector3 pos = CenterEyeAnchor.transform.position;
         Quaternion rot = CenterEyeAnchor.transform.rotation;
-        pos.y -= 0.2f;
+        pos.y -= 0.05f;
         pos.z += 0.5f;
         NoteSheet.transform.position = pos;
         Dialogs.transform.position = Vector3.Lerp(Dialogs.transform.position, pos, Time.deltaTime);

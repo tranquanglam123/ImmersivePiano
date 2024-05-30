@@ -100,5 +100,6 @@ public class DrawColliderHandler : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
         pianoPrefab.transform.SetPositionAndRotation(center, rotation);
+        lineRenderer.enabled = false;
     }
 }

@@ -9,6 +9,7 @@ public class PlaySongButtonHandler : Singleton<PlaySongButtonHandler>
 {
     private string _curSong;
     private Toggle _toggle;
+    public GameObject Songmenu;
     public string CurrentSong
     {
         get { return _curSong; }
@@ -27,14 +28,16 @@ public class PlaySongButtonHandler : Singleton<PlaySongButtonHandler>
 
     private void ToggleValueChanged()
     {
-        //try
-        //{
-        //    MIDIReadHandler.instance.midiFileName = _curSong;
-        //    MIDIReadHandler.instance.ReadMidiFileAsync();
-        //}
-        //catch (Exception ex)
-        //{
-        //    Debug.LogException(ex);
-        //}
+        try
+        {
+            MIDISystemManagement.instance.IsFreestyle = false;
+            MIDIReadHandler.instance.midiFileName = _curSong;
+            MIDIReadHandler.instance.ReadMidiFileAsync();
+            Songmenu.SetActive(false);
+        }
+        catch (Exception ex)
+        {
+            Debug.LogException(ex);
+        }
     }
 }

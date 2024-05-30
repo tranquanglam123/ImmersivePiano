@@ -128,8 +128,9 @@ namespace ImmersivePiano.MIDI
                             Transform t = LaneList.Find(item => item.name.ToString() == e.Value.ToString());
 
                             #region Spawning, customizing the notes
-                            MIDINote newNote = Instantiate(notePrefab, t.position, Quaternion.Euler(0, 0, 0), notesStorage.transform).transform.GetChild(0).GetComponent<MIDINote>();
-                            //newNote.gameObject.name = e.Value.ToString();
+                            MIDINote newNote = Instantiate(notePrefab, t.position, /*Quaternion.Euler(0, 0, 0)*/ Quaternion.identity, notesStorage.transform).transform.GetChild(0).GetComponent<MIDINote>();
+                            newNote.transform.parent.localRotation = Quaternion.identity;
+                            newNote.gameObject.name = e.Value.ToString();
                             newNote.MIDINoteSet(e.RealTime, e.Value, e.Duration, e.Velocity, speed);
                             newNote.gameObject.SetActive(true);
                             newNote.hideFlags = HideFlags.HideInHierarchy;

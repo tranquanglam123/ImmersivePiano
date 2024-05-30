@@ -33,8 +33,8 @@ public class SongButtonHandler : MonoBehaviour
     void OldMethod()
     {
         //NoteHighlighterManager.instance.SetSong(songs);
-        MIDIReadHandler.instance.midiFileName = _midiFileName;
-        MIDIReadHandler.instance.ReadMidiFileAsync();
-        //PlaySongButtonHandler.instance.CurrentSong = _midiFileName;
+        //MIDIReadHandler.instance.midiFileName = _midiFileName;
+        //MIDIReadHandler.instance.ReadMidiFileAsync();
+        PlaySongButtonHandler.instance.CurrentSong = _midiFileName;
     }
 }
