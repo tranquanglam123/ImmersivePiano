@@ -1,14 +1,9 @@
-using ImmersivePiano.Interaction.Editor.QuickActions;
 using MidiPlayerTK;
 using MPTK.NAudio.Midi;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using UnityEditor;
 using UnityEngine;
-using static DirectorySyncer;
 using CancellationToken = System.Threading.CancellationToken;
 
 namespace ImmersivePiano.MIDI

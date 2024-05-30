@@ -1,16 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using MidiPlayerTK;
-using ImmersivePiano;
 using DemoMPTK;
-using System.Threading.Tasks;
-using System;
-using Unity.VisualScripting;
-using ImmersivePiano.MIDI;
-using System.Linq;
-using System.Threading;
-using static DirectorySyncer;
 using CancellationTokenSource = System.Threading.CancellationTokenSource;
 
 namespace ImmersivePiano.MIDI
