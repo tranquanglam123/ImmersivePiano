@@ -61,26 +61,31 @@ namespace ImmersivePiano
         public void Press()
         {
             MIDISystemManagement.instance.GetMidiStreamPlayer().MPTK_PlayEvent(noteEvent);
-            if(!isNoteSpawned )
+            IsPressed = true;
+            if (MIDISystemManagement.instance.IsFreestyle)
             {
-                MIDINote newnote = MIDISystemManagement.instance.SpawningNote(transform, this);
-                //newnote.SpawnedNoteLengthAdjust(this);
-                newnote.PressStartTime = Time.time;
-                curVisualizedNote = newnote;
-                curVisualizedNote.IsSpawnedDone = false;
-                isNoteSpawned = true;
-                IsPressed = true;
+                if (!isNoteSpawned)
+                {
+                    MIDINote newnote = MIDISystemManagement.instance.SpawningNote(transform, this);
+                    //newnote.SpawnedNoteLengthAdjust(this);
+                    newnote.PressStartTime = Time.time;
+                    curVisualizedNote = newnote;
+                    curVisualizedNote.IsSpawnedDone = false;
+                    isNoteSpawned = true;
+                }
             }
-            
         }
 
         public void StopPressing()
         {
             MIDISystemManagement.instance.GetMidiStreamPlayer().MPTK_StopEvent(noteEvent);
-            isNoteSpawned=false;
             IsPressed = false;
-            curVisualizedNote.IsSpawnedDone = true;
-            curVisualizedNote = null; 
+            if (MIDISystemManagement.instance.IsFreestyle)
+            {
+                isNoteSpawned = false;
+                curVisualizedNote.IsSpawnedDone = true;
+                curVisualizedNote = null;
+            }
         }
 
     }

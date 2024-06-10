@@ -8,18 +8,23 @@ public class DrawColliderHandler : MonoBehaviour
     private int positionCount = 2;
     private int count;
     public Material material;
-    public GetPointerHandler getPointerHandler;
+    public GetPointerHandler gPtr;
     private bool isDrawing = false;
 
     [SerializeField] GameObject pianoPrefab;
     private Vector3 initPoint;
     private Vector3 endPoint;
-    private bool colliderSpawned = false;
+    private bool isSpawned = false;
 
     // Start is called before the first frame update
+    public bool IsSpawned
+    {
+        get { return isSpawned; }
+        set { IsSpawned = value; }
+    }
     void Start()
     {
-        getPointerHandler = GetComponent<GetPointerHandler>();
+        gPtr = GetComponent<GetPointerHandler>();
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.material = material;
         lineRenderer.startWidth = width;
@@ -33,7 +38,7 @@ public class DrawColliderHandler : MonoBehaviour
     {
         if (isDrawing)
         {
-            var skeleton = getPointerHandler.rightHand.GetComponent<OVRSkeleton>();
+            var skeleton = gPtr.rightHand.GetComponent<OVRSkeleton>();
             foreach (var b in skeleton.Bones)
             {
                 if (b.Id == OVRSkeleton.BoneId.Hand_IndexTip)
@@ -48,10 +53,10 @@ public class DrawColliderHandler : MonoBehaviour
             //pianoPrefab.SetActive(false); // Disable the collider until it's needed again
         }
 
-        if (count >= 2 && !colliderSpawned)
+        if (count >= 2 && !isSpawned)
         {
             InitCollider(initPoint, endPoint);
-            colliderSpawned = true; // Set the flag to true to prevent further spawning
+            isSpawned = true; // Set the flag to true to prevent further spawning
             //gameObject.SetActive(false); // Disable this script to prevent further drawing
         }
     }
@@ -60,7 +65,7 @@ public class DrawColliderHandler : MonoBehaviour
     {
         if (count < 1)
         {
-            initPoint = getPointerHandler.GetPointer(0);
+            initPoint = gPtr.GetPointer(0);
             lineRenderer.SetPosition(0, initPoint);
             count++;
         }

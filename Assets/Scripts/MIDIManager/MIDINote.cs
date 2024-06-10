@@ -1,4 +1,5 @@
 using MidiPlayerTK;
+using System;
 using UnityEngine;
 
 namespace ImmersivePiano.MIDI
@@ -27,10 +28,11 @@ namespace ImmersivePiano.MIDI
         private float speed;
         private bool _isSpawnedDone;
         private float _pressStartTime;
+        private BoxCollider _boxCollider;
         //private float delta = 0f;
         //private Vector3 initialScale
         //
-
+        public MPTKEvent MPTKEvent { get { return note; } private set { } }
         public MIDIKey MIDIKey
         {
             get { return matchingKey; }
@@ -51,6 +53,14 @@ namespace ImmersivePiano.MIDI
         private void Awake()
         {
             par = transform.parent;
+            try
+            {
+                _boxCollider = GetComponent<BoxCollider>();
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e.ToString());
+            }
             //initialScale = transform.localScale;
         }
 
@@ -117,8 +127,8 @@ namespace ImmersivePiano.MIDI
             {
                 if (transform.position.z <= MIDISystemManagement.instance.GetEndPos().position.z)
                 {
-                    midiStreamPlayer.MPTK_PlayEvent(note); //
-                    Destroy(par.gameObject);
+                    //midiStreamPlayer.MPTK_PlayEvent(note); //
+                    //Destroy(par.gameObject);
                 }
             }
         }
@@ -142,10 +152,12 @@ namespace ImmersivePiano.MIDI
             }
             else
             {
-                float translation = Time.deltaTime * MIDISystemManagement.instance.Speed;
-                transform.Translate(0, translation, 0);
-                //par.Translate(0, 0, -translation);
-
+                if (MIDISystemManagement.instance.FlowContinue)
+                {
+                    float translation = Time.deltaTime * MIDISystemManagement.instance.Speed;
+                    transform.Translate(0, translation, 0);
+                    //par.Translate(0, 0, -translation);
+                }
             }
         }
 

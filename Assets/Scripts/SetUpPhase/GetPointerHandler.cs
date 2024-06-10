@@ -76,8 +76,10 @@ public class GetPointerHandler : MonoBehaviour
                 break;
         }
     }
-    void OffCheckPointer()
+    public void ResetSetup()
     {
-        gameObject.SetActive(false);
+        count = 0;
+        gameObject.GetComponent<DrawColliderHandler>().IsSpawned = false;
+
     }
 }

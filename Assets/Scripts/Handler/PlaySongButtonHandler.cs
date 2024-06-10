@@ -7,15 +7,21 @@ using UnityEngine.UI;
 
 public class PlaySongButtonHandler : Singleton<PlaySongButtonHandler>
 {
-    private string _curSong;
+    private string _curMIDI;
+    private string _curSongName;
     private Toggle _toggle;
     public GameObject Songmenu;
-    public string CurrentSong
+    public CurrentSongDisplayHandler CurrentSongDisplay;
+    public string CurrentMIDI
     {
-        get { return _curSong; }
-        set { _curSong = value; }
+        get { return _curMIDI; }
+        set { _curMIDI = value; }
     }
-
+    public string CurrentSongName
+    {
+        get { return _curSongName; }
+        set { _curSongName = value; }
+    }
     void Start()
     {
         //Fetch the Toggle GameObject
@@ -25,19 +31,24 @@ public class PlaySongButtonHandler : Singleton<PlaySongButtonHandler>
             ToggleValueChanged();
         });
     }
-        
+
     private void ToggleValueChanged()
     {
-        try
+        if (CurrentSongDisplay != null)
         {
-            MIDISystemManagement.instance.IsFreestyle = false;
-            MIDIReadHandler.instance.midiFileName = _curSong;
-            MIDIReadHandler.instance.ReadMidiFileAsync();
-            Songmenu.SetActive(false);
-    }
-        catch (Exception ex)
-    {
-            Debug.LogException(ex);
+            try
+            {
+                MIDISystemManagement.instance.IsFreestyle = false;
+                MIDISystemManagement.instance.FlowContinue = true;
+                MIDIReadHandler.instance.midiFileName = _curMIDI;
+                CurrentSongDisplay.StartShowingCurSong(_curSongName);
+                MIDIReadHandler.instance.ReadMidiFileAsync();
+                Songmenu.SetActive(false);
+            }
+            catch (Exception ex)
+            {
+                Debug.LogException(ex);
+            }
         }
     }
 }

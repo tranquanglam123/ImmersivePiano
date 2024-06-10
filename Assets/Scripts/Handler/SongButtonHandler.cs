@@ -1,5 +1,6 @@
 using ImmersivePiano.MIDI;
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,8 +8,21 @@ public class SongButtonHandler : MonoBehaviour
 {
     [SerializeField] string _midiFileName;
     [SerializeField] Songs songs;
+    [SerializeField] string _songName;
     private Toggle _toggle;
 
+    private void Awake()
+    {
+        try
+        {
+        var SongInfo = transform.GetChild(1);
+        _songName = SongInfo.GetChild(0).GetComponent<TMP_Text>().text;
+        }
+        catch(Exception e)
+        {
+            Debug.Log(e.ToString());
+        }
+    }
     void Start()
     {
         //Fetch the Toggle GameObject
@@ -35,6 +49,7 @@ public class SongButtonHandler : MonoBehaviour
         //NoteHighlighterManager.instance.SetSong(songs);
         //MIDIReadHandler.instance.midiFileName = _midiFileName;
         //MIDIReadHandler.instance.ReadMidiFileAsync();
-        PlaySongButtonHandler.instance.CurrentSong = _midiFileName;
+        PlaySongButtonHandler.instance.CurrentMIDI = _midiFileName;
+        PlaySongButtonHandler.instance.CurrentSongName = _songName;
     }
 }

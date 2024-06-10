@@ -9,7 +9,6 @@ namespace ImmersivePiano
         [SerializeField] Vector3 Offset;
         [SerializeField] float DelayTime;
         [SerializeField] Camera CameraRig;
-
         private readonly string CameraRef = "CenterEyeAnchor";
         private Transform cam_trans;
 
@@ -30,7 +29,6 @@ namespace ImmersivePiano
             {
                 DelayTime = 0.5f;
             }
-
         }
 
         private void OnEnable()

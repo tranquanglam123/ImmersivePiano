@@ -3,6 +3,7 @@ using MPTK.NAudio.Midi;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using CancellationToken = System.Threading.CancellationToken;
 
@@ -19,10 +20,12 @@ namespace ImmersivePiano.MIDI
         [SerializeField] MidiFilePlayer midiFilePlayer;
         [SerializeField] MidiStreamPlayer midiStreamPlayer;
         [SerializeField] MIDIReadHandler mIDIReadHandler;
+        [SerializeField] NotesInPraciceHandler notesInPraciceHandler;
         [SerializeField] GameObject spawnParent;
         [SerializeField] GameObject notesStorage;
         [SerializeField] Transform endPos;
         [SerializeField] bool freestyle;
+        [SerializeField] bool flowContinue = true;
         private float speed;
 
         [Header("System tweaks")]
@@ -40,14 +43,18 @@ namespace ImmersivePiano.MIDI
         private int curTempo = 500000;
         private int deltaTicksPerQuarterNote;
         private float _spawnOffset = 0.02f;
-
+        private MIDIKey[] midiKeys;
 
         private float _initFreestyleSpeed = 0.1f;
         private float _initPracticeSpeed = 0.5f;
         //private MIDIKey[] _keys;
 
         #endregion
-
+        public bool FlowContinue
+        {
+            get { return flowContinue; }
+            set { flowContinue = value; }
+        }
         public bool IsFreestyle
         {
             get { return freestyle; }
@@ -56,9 +63,9 @@ namespace ImmersivePiano.MIDI
                 freestyle = value;
                 speed = freestyle ? _initFreestyleSpeed : _initPracticeSpeed;
                 Debug.Log($"Current Speed : {speed}");
+                notesInPraciceHandler.enabled = !freestyle;
             }
         }
-
         public float Speed
         {
             get { return speed; }
@@ -92,7 +99,7 @@ namespace ImmersivePiano.MIDI
                 deltaTicksPerQuarterNote = 48;
             }
             speed = IsFreestyle ? _initFreestyleSpeed : _initPracticeSpeed;
-            //Keys = FindObjectsOfType<MIDIKey>();
+            midiKeys = FindObjectsOfType<MIDIKey>();
         }
         private void Update()
         {
@@ -126,7 +133,8 @@ namespace ImmersivePiano.MIDI
                             MIDINote newNote = Instantiate(notePrefab, t.position, /*Quaternion.Euler(0, 0, 0)*/ Quaternion.identity, notesStorage.transform).transform.GetChild(0).GetComponent<MIDINote>();
                             newNote.transform.parent.localRotation = Quaternion.identity;
                             newNote.gameObject.name = e.Value.ToString();
-                            newNote.MIDINoteSet(e.RealTime, e.Value, e.Duration, e.Velocity, speed);
+                            newNote.MIDINoteSet(e.RealTime, e.Value, e.Duration, e.Velocity, speed); // not necess
+                            newNote.MIDIKey = midiKeys.FirstOrDefault(midiKey => midiKey.KeyValue == e.Value); //set the matching midi key
                             newNote.gameObject.SetActive(true);
                             newNote.hideFlags = HideFlags.HideInHierarchy;
                             newNote.SetMIDIStreamPlayer(midiStreamPlayer);
