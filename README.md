@@ -49,7 +49,7 @@ Click [here](https://www.overleaf.com/read/cwfcmjjsgbgq#89465e) to view the thes
 * Crash Log Error : Null pointer dereference.
 
 ## Future work:
-* Progress Tracking Systen
+* Progress Tracking System
 
 ## Contributions:
 
