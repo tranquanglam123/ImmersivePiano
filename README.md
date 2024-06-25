@@ -3,8 +3,11 @@
 This is a mixed reality immersive piano project that allows users to play the piano in a virtual environment. The project uses the following technologies:
 
 * Unity
-* Microsoft Mixed Reality Toolkit (No more in used)
-* Oculus Integration V57 (Now **Meta XR SDK All-in-One**)
+* [Meta XR SDK V65](https://assetstore.unity.com/packages/tools/integration/meta-xr-all-in-one-sdk-269657)
+* [Maestro SDK](https://paxstellar.fr/)
+
+## Thesis
+Click [here](https://www.overleaf.com/read/cwfcmjjsgbgq#89465e) to view the thesis.
 
 ## To build and run the project:
 *Make sure that you have met the requirement of ADB, Oculus XR Plugin and Android SDK in Unity
@@ -34,18 +37,19 @@ This is a mixed reality immersive piano project that allows users to play the pi
 * Press down on the keys with your hand to play them harder.
 * Look around the environment to change your perspective.
 
-## Known issues:
+## Solved issues:
 
-* There is currently no multiple songs.
-* The piano sound quality is not perfect.
-* The hand tracking is not perfect
+* Multiple songs.
+* MIDI Visualizations.
+* The hand tracking is not perfect.
 * The apk file is now unstable and can not work well. This issue is being debugged.
 
-## Future work:
+## Known issues:
+* The apk file is now unstable and can not work well. This issue is being debugged.
+* Crash Log Error : Null pointer dereference.
 
-* Add support for playing chords.
-* Improve the piano sound quality.
-* Add more interactive features to the environment.
+## Future work:
+* Progress Tracking Systen
 
 ## Contributions:
 
